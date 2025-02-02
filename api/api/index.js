@@ -8,7 +8,9 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import cors from 'cors';
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://task-kappa-sooty.vercel.app/'
+}));
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: "abc.env" });
