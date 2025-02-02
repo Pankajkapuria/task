@@ -38,12 +38,12 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
+// app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.get('*', (req, res) => {
-  console.log(__dirname);
-  res.sendFile(path.join(__dirname, '/client/dist/index.html'));
-});
+// app.get('*', (req, res) => {
+//   console.log(__dirname);
+//   res.sendFile(path.join(__dirname, '/client/dist/index.html'));
+// });
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
