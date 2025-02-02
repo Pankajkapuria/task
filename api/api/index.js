@@ -16,6 +16,7 @@ app.use(cors({
   origin: 'https://task-kappa-sooty.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials:true,
 }));
 
 if (process.env.NODE_ENV !== 'production') {

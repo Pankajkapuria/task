@@ -1,30 +1,25 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import userRoutes from '../routes/user.route.js';
-import authRoutes from '../routes/auth.route.js';
-import postRoutes from '../routes/post.route.js';
+import userRoutes from './routes/user.route.js';
+import authRoutes from './routes/auth.route.js';
+import postRoutes from './routes/post.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import cors from 'cors';
+import cors from 'cors'
 
-// Initialize express app
 const app = express();
-
-// Enable CORS at the top
 app.use(cors({
-  origin: 'https://task-kappa-sooty.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: 'https://task-kappa-sooty.vercel.app',  // Only allow this origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Adjust methods if needed
+  allowedHeaders: ['Content-Type', 'Authorization'], // Adjust headers if needed
+  credentials:true
 }));
 
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config({ path: 'abc.env' });
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config({ path: "abc.env" });
 }
 
-console.log("OK");
-
-// MongoDB connection setup
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -34,20 +29,31 @@ mongoose
     console.log('MongoDb is connected');
   })
   .catch((err) => {
-    console.log('MongoDb connection error:', err);
+    console.log('MongoDb connection error:5', err);
   });
 
-// Middleware setup
+const __dirname = path.resolve();
+
+
+
 app.use(express.json());
 app.use(cookieParser());
 
-// API Routes
+app.listen(3100, () => {
+  console.log('Server is running on port 3100!');
+});
+
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// Global error handler
+app.get('*', (req, res) => {
+  console.log(__dirname);
+  res.sendFile(path.join(__dirname, '/client/dist/index.html'));
+});
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
@@ -57,11 +63,3 @@ app.use((err, req, res, next) => {
     message,
   });
 });
-
-// Start the server
-const PORT = process.env.PORT || 3100;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}!`);
-});
-
-export default app;
