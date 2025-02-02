@@ -7,7 +7,9 @@ import postRoutes from './routes/post.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config({ path: "api/abc.env" });
+}
 
 mongoose
   .connect(process.env.MONGO_URL, {
@@ -39,7 +41,8 @@ app.use('/api/post', postRoutes);
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  console.log(__dirname);
+  res.sendFile(path.join(__dirname, '/client/dist/index.html'));
 });
 
 app.use((err, req, res, next) => {
