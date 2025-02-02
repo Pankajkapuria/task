@@ -9,7 +9,7 @@ export default function Home() {
     
     const fetchPosts = async () => {
       console.log(import.meta.env.VITE_REACT_APP_BACKEND_URL);
-      const res = await fetch('/api/post/getPosts');
+      const res = await fetch('https://task-ac5b.vercel.app/api/post/getPosts');
       const data = await res.json();
       setPosts(data.posts);
     };
