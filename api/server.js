@@ -46,14 +46,6 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 
-// Static file serving
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-// Handle frontend routing
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
 
 // Global error handler
 app.use((err, req, res, next) => {
