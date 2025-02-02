@@ -6,6 +6,9 @@ import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from 'cors'
+
+app.use(cors());
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: "abc.env" });
