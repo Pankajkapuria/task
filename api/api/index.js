@@ -10,14 +10,18 @@ import cors from 'cors';
 
 // Initialize express app
 const app = express();
+import cors from 'cors';
 
-// Enable CORS at the top
 app.use(cors({
-  origin: 'https://task-kappa-sooty.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials:true,
+  origin: 'https://task-kappa-sooty.vercel.app', // Allow specific origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+  credentials: true // Include cookies if needed
 }));
+
+
+app.options('*', cors());
+
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config({ path: 'abc.env' });
