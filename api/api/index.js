@@ -9,14 +9,16 @@ import path from 'path';
 import cors from 'cors';
 
 app.use(cors({
-  origin: 'https://task-kappa-sooty.vercel.app/'
+  origin: 'https://task-kappa-sooty.vercel.app',  // Only allow this origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Adjust methods if needed
+  allowedHeaders: ['Content-Type', 'Authorization'], // Adjust headers if needed
 }));
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: "abc.env" });
 }
 
-
+console.log("OK");
 
 mongoose
   .connect(process.env.MONGO_URL, {
