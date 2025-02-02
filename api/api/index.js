@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 
 if (process.env.NODE_ENV !== "production") {
-  dotenv.config({ path: "api/abc.env" });
+  dotenv.config({ path: "abc.env" });
 }
 
 mongoose
