@@ -9,7 +9,6 @@ import path from 'path';
 import cors from 'cors';
 
 const app = express();
-import cors from 'cors';
 
 app.use(cors({
   origin: 'https://task-kappa-sooty.vercel.app', 
